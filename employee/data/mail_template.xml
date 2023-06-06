@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="employee_card_email_template" model="mail.template">
+            <field name="name">Employee Card: Send by mail</field>
+            <field name="model_id" ref="employee.model_company_employee"/>
+            <field name="email_form">${object.user_id.email_formatted |safe}</field>
+            <field name="email_to">${object.manager_id.contact}</field>
+            <field name="subject">Employee Card (Ref ${object.name_employee})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-side: 13px;">
+                        Dear ${object.manager_id.name_manager}
+                        <br/>
+                        Here is your employee card with reference ${object.name_employee}
+                        <br/>
+                        OT Hour : ${object.ot_hour}
+                        <br/>
+                        If you have queries feel free to ask
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="company_employee_tree" model="ir.ui.view">
+        <field name="name">company.employee.tree</field>
+        <field name="model">company.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Employee OT">
+                <field name="name_employee"/>
+                <field name="manager_id"/>
+                <field name="ot_hour"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="company_employee_form" model="ir.ui.view">
+        <field name="name">company.employee.form</field>
+        <field name="model">company.employee</field>
+        <field name="arch" type="xml">
+            <form string="Employee OT">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" states="draft"
+                            class="oe_highlight" groups="employee.group_company_manager"/>
+                    <button name="action_done" type="object" string="Done" states="confirm"
+                            class="oe_highlight" groups="employee.group_company_manager"/>
+                    <button name="action_send_card" type="object" string="Send mail" class="oe_highlight"
+                            groups="employee.group_company_employee"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name_employee"/>
+                        <field name="employee_id"/>
+                        <field name="manager_id"/>
+                        <field name="ot_hour"/>
+                    </group>
+                </sheet>
+                <notebook>
+                    <page string="OT Lines">
+                        <field name="schedule_ids">
+                            <tree editable="bottom">
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="ot_category"/>
+                                <field name="time_ot" sum="OT_Hour"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_employee" model="ir.actions.act_window">
+        <field name="name">Employee OT</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">company.employee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field> <!--Che do xem-->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create First Employee!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="company_root"
+              name="OT Management"
+              sequence="1"
+    />
+    <menuitem id="employee_menu"
+              name="Employee"
+              parent="company_root"
+              action="action_employee"
+              sequence="1"
+    />
+
+</odoo>

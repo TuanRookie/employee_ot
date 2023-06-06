@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="manager_tree" model="ir.ui.view">
+        <field name="name">company.manager.tree</field>
+        <field name="model">company.manager</field>
+        <field name="arch" type="xml">
+            <tree string="Manager">
+                <field name="name_manager"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="manager_form" model="ir.ui.view">
+        <field name="name">company.manager.form</field>
+        <field name="model">company.manager</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name_manager"/>
+                        <field name="manager_id"/>
+                    </group>
+                    <group>
+                        <field name="contact"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_manager" model="ir.actions.act_window">
+        <field name="name">Manager</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">company.manager</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field> <!--Che do xem-->
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Mananger!
+            </p>
+        </field>
+    </record>
+    <menuitem id="company_manager" name="Manager" parent="company_root"
+              action="action_manager" groups="employee.group_company_manager"/>
+
+
+</odoo>
